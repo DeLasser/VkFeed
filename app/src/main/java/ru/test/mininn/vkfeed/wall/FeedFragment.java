@@ -26,21 +26,22 @@ public class FeedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         VKApiNewsfeed newsfeed = new VKApiNewsfeed();
+        log(" onCreateView");
         VKRequest request = newsfeed.get(VKParameters.from(VKApiConst.FILTERS,"post"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
                 super.onComplete(response);
-                VKNewsfeedArray array = new VKNewsfeedArray();
+                VKNewsfeedArray array = null;
                 try {
                     array = (VKNewsfeedArray) response.parsedModel;
                     for(VKNewsfeedItem item : array) {
                         log(item.text);
+                        log(array.getAuthor(item.source_id).getName());
                     }
                 } catch (Exception e) {
-                    log(e.toString());
+                    e.printStackTrace();
                 }
-                log(array.size() + " count");
             }
 
             @Override

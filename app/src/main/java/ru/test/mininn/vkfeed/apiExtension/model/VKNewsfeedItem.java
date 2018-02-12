@@ -3,6 +3,7 @@ package ru.test.mininn.vkfeed.apiExtension.model;
 import android.os.Parcel;
 
 import com.vk.sdk.api.model.Identifiable;
+import com.vk.sdk.api.model.VKApiModel;
 import com.vk.sdk.api.model.VKAttachments;
 
 import org.json.JSONException;
@@ -61,16 +62,6 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
     };
 
     @Override
-    public CharSequence toAttachmentString() {
-        return null;
-    }
-
-    @Override
-    public String getType() {
-        return null;
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -82,5 +73,15 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
     @Override
     public int getId() {
         return 0;
+    }
+
+    @Override
+    public CharSequence toAttachmentString() {
+        return null;
+    }
+
+    @Override
+    public String getType() {
+        return null;
     }
 }

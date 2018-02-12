@@ -2,77 +2,46 @@ package ru.test.mininn.vkfeed.apiExtension.model;
 
 import android.os.Parcel;
 
-import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKPostArray;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
-
 public class VKNewsfeedArray extends VKList<VKNewsfeedItem> {
-    private final String GROPS = "groups";
-    private final String PROFILES = "profiles";
-    private Map<Integer, VKFeedAuthor> authors;
+    private VKAuthorArray authors;
 
-    public VKFeedAuthor getFeefauthor (int sourceId) {
-        return authors.get(sourceId);
-    }
-
-    @Override
-    public VKNewsfeedArray parse(JSONObject response) throws JSONException {
-        fill(response, VKNewsfeedItem.class);
-        return this;
+    public VKFeedAuthor getAuthor(int sourceId) {
+        for (VKFeedAuthor author : authors) {
+            if (author.getId() == sourceId) {
+                return author;
+            }
+        }
+        return null;
     }
 
     @Override
     public void fill(JSONObject from, Class<? extends VKNewsfeedItem> clazz) {
         super.fill(from, clazz);
-        fillMap(from, VKFeedAuthor.class);
     }
 
     @Override
-    public void fill(JSONArray from, Parser<? extends VKNewsfeedItem> creator) {
-        super.fill(from, creator);
-    }
-
-    private void fillAuthors(JSONArray from, Parser<? extends VKFeedAuthor> creator, String jsonArrayTag) {
-        if(from != null) {
-            for(int i = 0; i < from.length(); i++) {
-                try {
-                    JSONObject jsonObject = from.getJSONObject(i);
-                    VKFeedAuthor object = creator.parseObject(from.getJSONObject(i));
-                    if(object != null) {
-                        if (jsonArrayTag == GROPS) {
-                            authors.put(jsonObject.getInt("id") * (-1), object);
-                        } else {
-                            authors.put(jsonObject.getInt("id"), object);
-                        }
-                    }
-                } catch (Exception e) {
-                    if (VKSdk.DEBUG)
-                        e.printStackTrace();
-                }
-            }
+    public VKNewsfeedArray parse(JSONObject response) throws JSONException {
+        fill(response, VKNewsfeedItem.class);
+        authors = new VKAuthorArray();
+        try {
+            authors = authors.parse(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        return this;
     }
-
-    private void fillMap(JSONObject from, Class<? extends VKFeedAuthor> creator) {
-        if(from != null) {
-            fillAuthors(from.optJSONArray(GROPS), new ReflectParser<VKFeedAuthor>(creator), GROPS);
-            fillAuthors(from.optJSONArray(PROFILES), new ReflectParser<VKFeedAuthor>(creator), PROFILES);
-        }
-    }
-
-    @SuppressWarnings("unused")
-    public VKNewsfeedArray() {
-    }
-
 
     public VKNewsfeedArray(Parcel in) {
         super(in);
+    }
+
+    public VKNewsfeedArray() {
     }
 
     public static Creator<VKPostArray> CREATOR = new Creator<VKPostArray>() {

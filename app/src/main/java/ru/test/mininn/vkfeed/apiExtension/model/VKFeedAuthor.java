@@ -1,14 +1,18 @@
 package ru.test.mininn.vkfeed.apiExtension.model;
 
 import android.os.Parcel;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.vk.sdk.api.model.Identifiable;
+import com.vk.sdk.api.model.VKApiModel;
 import com.vk.sdk.api.model.VKAttachments;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class VKFeedAuthor extends VKAttachments.VKApiAttachment implements Identifiable, android.os.Parcelable{
+public class VKFeedAuthor extends VKApiModel implements Identifiable, android.os.Parcelable{
+    private int id;
     private String name;
     private String photo_50;
 
@@ -16,19 +20,24 @@ public class VKFeedAuthor extends VKAttachments.VKApiAttachment implements Ident
 
     }
 
+    private VKFeedAuthor() {
+    }
+
+    public VKFeedAuthor(JSONObject from) throws JSONException {
+        parse(from);
+    }
+
     public VKFeedAuthor parse(JSONObject source) throws JSONException {
-        if(source.optString("first_name") != null) {
+        if(!TextUtils.isEmpty(source.optString("first_name"))) {
+            id = source.optInt("id");
             name = source.optString("first_name") + " " + source.optString("last_name");
         }else {
             name = source.optString("name");
+            id = 0 - source.optInt("id");
+            Log.d("???????????????", id + name);
         }
         photo_50 = source.optString("photo_50");
         return this;
-    }
-
-    @Override
-    public CharSequence toAttachmentString() {
-        return null;
     }
 
     private static final Creator<VKFeedAuthor> CREATOR = new Creator<VKFeedAuthor>() {
@@ -44,11 +53,6 @@ public class VKFeedAuthor extends VKAttachments.VKApiAttachment implements Ident
     };
 
     @Override
-    public String getType() {
-        return null;
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -60,6 +64,14 @@ public class VKFeedAuthor extends VKAttachments.VKApiAttachment implements Ident
 
     @Override
     public int getId() {
-        return 0;
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhoto() {
+        return photo_50;
     }
 }
