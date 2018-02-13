@@ -11,10 +11,13 @@ import org.json.JSONObject;
 public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Identifiable, android.os.Parcelable {
     private int id;
     private String type;
+    private boolean repost = false;
     private int sourceId;
+    private int ownerId;
     private int postId;
     private long date;
     private String text;
+    private String repostedText;
     private int likesCount;
     private boolean userLikes;
     private boolean canLike;
@@ -45,7 +48,26 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
         }
         postType = source.optString("post_type");
         attachments.fill(source.optJSONArray("attachments"));
+        if (source.has("copy_history")){
+            JSONObject repostedSource = source.getJSONArray("copy_history").getJSONObject(0);
+            repost = true;
+            ownerId = repostedSource.getInt("owner_id");
+            repostedText = repostedSource.getString("text");
+            attachments.fill(repostedSource.optJSONArray("attachments"));
+        }
         return this;
+    }
+
+    public boolean isRepost() {
+        return repost;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public String getRepostedText() {
+        return repostedText;
     }
 
     public int getSourceId() {

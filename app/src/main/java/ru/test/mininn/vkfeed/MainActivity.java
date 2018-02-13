@@ -8,11 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
-import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKError;
 
 import ru.test.mininn.vkfeed.login.LoginFragment;
-import ru.test.mininn.vkfeed.wall.FeedFragment;
+import ru.test.mininn.vkfeed.wall.fragment.FeedFragment;
 
 public class MainActivity extends AppCompatActivity {
 

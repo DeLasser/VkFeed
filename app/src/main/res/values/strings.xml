@@ -2,5 +2,6 @@
     <string name="app_name">VkFeed</string>
     <string name="log_in">Log in</string>
     <string name="error">Error</string>
+    <string name="reposted">\n Reposted from : </string>
 
 </resources>

@@ -33,7 +33,7 @@ public class VKFeedAuthor extends VKApiModel implements Identifiable, android.os
             name = source.optString("name");
             id = 0 - source.optInt("id");
         }
-        photo = source.optString("photo_50");
+        photo = source.optString("photo_100");
         return this;
     }
 

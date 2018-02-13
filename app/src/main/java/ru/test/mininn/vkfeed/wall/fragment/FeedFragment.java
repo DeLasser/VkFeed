@@ -1,4 +1,4 @@
-package ru.test.mininn.vkfeed.wall;
+package ru.test.mininn.vkfeed.wall.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +19,7 @@ import com.vk.sdk.api.VKResponse;
 import ru.test.mininn.vkfeed.R;
 import ru.test.mininn.vkfeed.apiExtension.VKApiNewsfeed;
 import ru.test.mininn.vkfeed.apiExtension.model.VKNewsfeedArray;
+import ru.test.mininn.vkfeed.apiExtension.model.VKNewsfeedItem;
 import ru.test.mininn.vkfeed.wall.adapter.NewsfeedAdapter;
 
 public class FeedFragment extends Fragment {
@@ -46,9 +47,13 @@ public class FeedFragment extends Fragment {
             public void onComplete(VKResponse response) {
                 super.onComplete(response);
                 VKNewsfeedArray array = (VKNewsfeedArray) response.parsedModel;
+                for (VKNewsfeedItem item : array) {
+                    Log.d("dsdasdasd" , item.getText());
+                    Log.d("dsdasdasd" , item.getPostType());
+                    Log.d("dsdasdasd" , array.getAuthor(item.getSourceId()).getName());
+                }
                 adapter.add(array);
                 adapter.notifyDataSetChanged();
-//                recyclerView.invalidate();
             }
 
             @Override
