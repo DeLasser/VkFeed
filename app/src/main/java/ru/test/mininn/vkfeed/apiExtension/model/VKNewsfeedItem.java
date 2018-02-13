@@ -3,25 +3,24 @@ package ru.test.mininn.vkfeed.apiExtension.model;
 import android.os.Parcel;
 
 import com.vk.sdk.api.model.Identifiable;
-import com.vk.sdk.api.model.VKApiModel;
 import com.vk.sdk.api.model.VKAttachments;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Identifiable, android.os.Parcelable {
-    public int id;
-    public String type;
-    public int source_id;
-    public int post_id;
-    public long date;
-    public String text;
-    public int likes_count;
-    public boolean user_likes;
-    public boolean can_like;
-    public boolean can_publish;
-    public String post_type;
-    public VKAttachments attachments = new VKAttachments();
+    private int id;
+    private String type;
+    private int sourceId;
+    private int postId;
+    private long date;
+    private String text;
+    private int likesCount;
+    private boolean userLikes;
+    private boolean canLike;
+    private boolean canPublish;
+    private String postType;
+    private VKAttachments attachments = new VKAttachments();
 
     private VKNewsfeedItem(Parcel in) {
     }
@@ -32,21 +31,61 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
 
     public VKNewsfeedItem parse(JSONObject source) throws JSONException {
         id = source.optInt("id");
-        source_id = source.optInt("source_id");
-        post_id = source.optInt("post_id");
+        sourceId = source.optInt("source_id");
+        postId = source.optInt("post_id");
         date = source.optLong("date");
         text = source.optString("text");
         type = source.optString("type");
         JSONObject likes = source.optJSONObject("likes");
         if (likes != null) {
-            likes_count = likes.optInt("count");
-            user_likes = likes.optInt("user_likes", 0) == 1;
-            can_like = likes.optInt("can_like", 0) == 1;
-            can_publish = likes.optInt("can_publish", 0) == 1;
+            likesCount = likes.optInt("count");
+            userLikes = likes.optInt("user_likes", 0) == 1;
+            canLike = likes.optInt("can_like", 0) == 1;
+            canPublish = likes.optInt("can_publish", 0) == 1;
         }
-        post_type = source.optString("post_type");
+        postType = source.optString("post_type");
         attachments.fill(source.optJSONArray("attachments"));
         return this;
+    }
+
+    public int getSourceId() {
+        return sourceId;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getLikesCount() {
+        return likesCount;
+    }
+
+    public boolean isUserLikes() {
+        return userLikes;
+    }
+
+    public boolean isCanLike() {
+        return canLike;
+    }
+
+    public boolean isCanPublish() {
+        return canPublish;
+    }
+
+    public String getPostType() {
+        return postType;
+    }
+
+    public VKAttachments getAttachments() {
+        return attachments;
     }
 
     private static final Creator<VKNewsfeedItem> CREATOR = new Creator<VKNewsfeedItem>() {

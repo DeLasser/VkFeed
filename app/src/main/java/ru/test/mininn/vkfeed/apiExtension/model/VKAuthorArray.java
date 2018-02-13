@@ -1,11 +1,7 @@
 package ru.test.mininn.vkfeed.apiExtension.model;
 
-import android.util.Log;
-
-import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.model.VKList;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,24 +20,6 @@ public class VKAuthorArray extends VKList<VKFeedAuthor> {
         if (from != null) {
             fill(from.optJSONArray(GROUPS), creator);
             fill(from.optJSONArray(PROFILES), creator);
-        }
-    }
-
-    @Override
-    public void fill(JSONArray from, Parser<? extends VKFeedAuthor> creator) {
-        if (from != null) {
-            Log.d("///////////////", from.length() + " ");
-            for (int i = 0; i < from.length(); i++) {
-                try {
-                    VKFeedAuthor object = creator.parseObject(from.getJSONObject(i));
-                    if (object != null) {
-                        this.add(object);
-                        Log.d("///////////////", object.getName());
-                    }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
-            }
         }
     }
 }

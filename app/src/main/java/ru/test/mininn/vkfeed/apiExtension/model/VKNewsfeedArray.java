@@ -1,6 +1,7 @@
 package ru.test.mininn.vkfeed.apiExtension.model;
 
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 
 import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKPostArray;
@@ -8,8 +9,11 @@ import com.vk.sdk.api.model.VKPostArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collection;
+
 public class VKNewsfeedArray extends VKList<VKNewsfeedItem> {
     private VKAuthorArray authors;
+    private String nextFrom;
 
     public VKFeedAuthor getAuthor(int sourceId) {
         for (VKFeedAuthor author : authors) {
@@ -18,6 +22,15 @@ public class VKNewsfeedArray extends VKList<VKNewsfeedItem> {
             }
         }
         return null;
+    }
+
+
+    private VKAuthorArray getAllAuthors () {
+        return authors;
+    }
+
+    public void setNextFrom(String nextFrom) {
+        this.nextFrom = nextFrom;
     }
 
     @Override
@@ -29,12 +42,29 @@ public class VKNewsfeedArray extends VKList<VKNewsfeedItem> {
     public VKNewsfeedArray parse(JSONObject response) throws JSONException {
         fill(response, VKNewsfeedItem.class);
         authors = new VKAuthorArray();
-        try {
-            authors = authors.parse(response);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        authors = authors.parse(response);
+        fillNextFrom(response);
         return this;
+    }
+
+    private void fillNextFrom(JSONObject response) {
+        if (response.has("response")) {
+            JSONObject object = response.optJSONObject("response");
+            nextFrom = object.optString("next_from");
+        }
+    }
+
+    public boolean addAll(VKNewsfeedArray vkNewsfeedArray) {
+        if (authors == null){
+            authors = new VKAuthorArray();
+        }
+        authors.addAll(vkNewsfeedArray.getAllAuthors());
+        nextFrom = vkNewsfeedArray.getNextFrom();
+        return super.addAll(vkNewsfeedArray);
+    }
+
+    public String getNextFrom() {
+        return nextFrom;
     }
 
     public VKNewsfeedArray(Parcel in) {

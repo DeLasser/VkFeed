@@ -6,10 +6,10 @@ import com.vk.sdk.api.methods.VKApiBase;
 
 import ru.test.mininn.vkfeed.apiExtension.model.VKNewsfeedArray;
 
-public class VKApiNewsfeed extends VKApiBase{
+public class VKApiNewsfeed extends VKApiBase {
 
     public VKRequest get(VKParameters params) {
-            return prepareRequest("get", params, VKNewsfeedArray.class);
+        return prepareRequest("get", params, VKNewsfeedArray.class);
     }
 
     @Override
