@@ -2,9 +2,6 @@ package ru.test.mininn.vkfeed.wall.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +18,7 @@ public class ImagePagerAdapter extends PagerAdapter {
     private Context context;
     private List<VKApiPhoto> photos;
 
-    public ImagePagerAdapter(Context context,List<VKApiPhoto> photos) {
+    public ImagePagerAdapter(Context context, List<VKApiPhoto> photos) {
         this.context = context;
         this.photos = photos;
     }
@@ -31,7 +28,7 @@ public class ImagePagerAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.item_image, collection, false);
         SimpleDraweeView image = layout.findViewById(R.id.image);
-        if(photos.get(position).height / photos.get(position).width != 0) {
+        if (photos.get(position).height / photos.get(position).width != 0) {
             image.setAspectRatio(photos.get(position).height / photos.get(position).width);
         }
         image.setImageURI(photos.get(position).photo_604);

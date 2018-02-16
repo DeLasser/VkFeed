@@ -46,16 +46,16 @@ public class NewsfeedItemBinder {
 
     public void bindImages(VKNewsfeedItem item, SimpleDraweeView[] views) {
         List<VKApiPhoto> list = new ArrayList<>();
-        for (VKAttachments.VKApiAttachment attachment : item.getAttachments()){
-            if (attachment.getType().equals(VKAttachments.TYPE_PHOTO)){
+        for (VKAttachments.VKApiAttachment attachment : item.getAttachments()) {
+            if (attachment.getType().equals(VKAttachments.TYPE_PHOTO)) {
                 list.add((VKApiPhoto) attachment);
-                if(list.size() >= 2) {
+                if (list.size() >= 2) {
                     break;
                 }
             }
         }
         switch (list.size()) {
-            case 0 :
+            case 0:
                 views[0].setVisibility(View.GONE);
                 views[1].setVisibility(View.GONE);
                 break;
@@ -70,7 +70,7 @@ public class NewsfeedItemBinder {
         }
     }
 
-    public void bindText (VKNewsfeedItem item, VKFeedAuthor author, TextView view) {
+    public void bindText(VKNewsfeedItem item, VKFeedAuthor author, TextView view) {
         if (item.isRepost()) {
             view.setText(item.getText() + view.getContext().getString(R.string.reposted)
                     + author.getName() + "\n" + item.getRepostedText());
@@ -79,7 +79,7 @@ public class NewsfeedItemBinder {
         }
     }
 
-    public void bindImageView (final SimpleDraweeView imageView, String imageUrl) {
+    public void bindImageView(final SimpleDraweeView imageView, String imageUrl) {
         if (imageUrl != null) {
             ControllerListener controllerListener = new ControllerListener() {
                 @Override

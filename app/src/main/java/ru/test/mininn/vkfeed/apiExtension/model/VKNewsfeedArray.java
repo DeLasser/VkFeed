@@ -22,7 +22,7 @@ public class VKNewsfeedArray extends VKList<VKNewsfeedItem> {
     }
 
 
-    private VKAuthorArray getAllAuthors () {
+    private VKAuthorArray getAllAuthors() {
         return authors;
     }
 
@@ -52,7 +52,7 @@ public class VKNewsfeedArray extends VKList<VKNewsfeedItem> {
     }
 
     public boolean addAll(VKNewsfeedArray vkNewsfeedArray) {
-        if (authors == null){
+        if (authors == null) {
             authors = new VKAuthorArray();
         }
         authors.addAll(vkNewsfeedArray.getAllAuthors());

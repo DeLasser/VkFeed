@@ -71,7 +71,7 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
         }
         postType = source.optString("post_type");
         attachments.fill(source.optJSONArray("attachments"));
-        if (source.has("copy_history")){
+        if (source.has("copy_history")) {
             JSONObject repostedSource = source.getJSONArray("copy_history").getJSONObject(0);
             repost = true;
             ownerId = repostedSource.getInt("owner_id");
@@ -166,7 +166,7 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
         dest.writeInt(canLike ? 1 : 0);
         dest.writeInt(canPublish ? 1 : 0);
         dest.writeString(postType);
-        dest.writeParcelable(attachments,0);
+        dest.writeParcelable(attachments, 0);
 
     }
 

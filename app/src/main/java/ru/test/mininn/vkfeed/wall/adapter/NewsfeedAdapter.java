@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import ru.test.mininn.vkfeed.R;
 import ru.test.mininn.vkfeed.apiExtension.model.VKNewsfeedArray;
 
-public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedViewHolder>{
+public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedViewHolder> {
 
     private VKNewsfeedArray newsfeedArray;
 
@@ -37,7 +37,7 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedViewHolder>{
         return newsfeedArray.size();
     }
 
-    public String getNextFrom () {
+    public String getNextFrom() {
         return newsfeedArray.getNextFrom();
     }
 

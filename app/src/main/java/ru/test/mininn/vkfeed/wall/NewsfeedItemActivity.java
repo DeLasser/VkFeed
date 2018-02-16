@@ -4,20 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiPhoto;
 import com.vk.sdk.api.model.VKAttachments;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -67,12 +63,12 @@ public class NewsfeedItemActivity extends Activity {
                         super.onComplete(response);
                         try {
                             likeCount.setText(response.json.getJSONObject("response").getInt("likes") + "");
-                            if (item.isUserLikes()){
+                            if (item.isUserLikes()) {
                                 item.setUserLikes(false);
                             } else {
                                 item.setUserLikes(true);
                             }
-                            binder.bindLikeImage(item,likeImage,null);
+                            binder.bindLikeImage(item, likeImage, null);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -92,8 +88,8 @@ public class NewsfeedItemActivity extends Activity {
 
     private void initViewPager(VKNewsfeedItem item) {
         List<VKApiPhoto> list = new ArrayList<>();
-        for (VKAttachments.VKApiAttachment attachment : item.getAttachments()){
-            if (attachment.getType().equals(VKAttachments.TYPE_PHOTO)){
+        for (VKAttachments.VKApiAttachment attachment : item.getAttachments()) {
+            if (attachment.getType().equals(VKAttachments.TYPE_PHOTO)) {
                 list.add((VKApiPhoto) attachment);
             }
         }
@@ -102,7 +98,8 @@ public class NewsfeedItemActivity extends Activity {
 
         viewPager.setAdapter(adapter);
     }
-    private  void initViews() {
+
+    private void initViews() {
         sourceImage = findViewById(R.id.source_image);
         sourceName = findViewById(R.id.source_name);
         date = findViewById(R.id.date);

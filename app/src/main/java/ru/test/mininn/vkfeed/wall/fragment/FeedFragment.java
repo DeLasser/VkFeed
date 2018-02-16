@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.vk.sdk.api.VKResponse;
 import ru.test.mininn.vkfeed.R;
 import ru.test.mininn.vkfeed.apiExtension.VKApiNewsfeed;
 import ru.test.mininn.vkfeed.apiExtension.model.VKNewsfeedArray;
-import ru.test.mininn.vkfeed.apiExtension.model.VKNewsfeedItem;
 import ru.test.mininn.vkfeed.wall.adapter.NewsfeedAdapter;
 
 public class FeedFragment extends Fragment {
@@ -49,7 +47,7 @@ public class FeedFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void initViews (View view) {
+    private void initViews(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
         swipeRefreshLayout = view.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -80,7 +78,7 @@ public class FeedFragment extends Fragment {
         if (refresh) {
             parameters = VKParameters.from(VKParameters.from(VKApiConst.FILTERS, "post"));
             adapter.clear();
-        }else {
+        } else {
             parameters = VKParameters.from(VKParameters.from(VKApiConst.FILTERS, "post",
                     "start_from", adapter.getNextFrom()));
         }

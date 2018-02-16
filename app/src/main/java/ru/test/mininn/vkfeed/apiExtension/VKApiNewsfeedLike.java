@@ -1,7 +1,5 @@
 package ru.test.mininn.vkfeed.apiExtension;
 
-import android.util.Log;
-
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.methods.VKApiBase;

@@ -43,7 +43,7 @@ public class NewsfeedViewHolder extends RecyclerView.ViewHolder {
         likeCount.setText(String.valueOf(item.getLikesCount()));
         NewsfeedItemBinder binder = new NewsfeedItemBinder();
 
-        binder.bindImages(item,new SimpleDraweeView[]{imageView1, imageView2});
+        binder.bindImages(item, new SimpleDraweeView[]{imageView1, imageView2});
         binder.bindText(item, newsfeedArray.getAuthor(item.getOwnerId()), text);
         binder.bindLikeImage(item, likeImage, null);
         binder.bindDate(item, date);
@@ -51,7 +51,7 @@ public class NewsfeedViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    private void setOnClick (final VKNewsfeedItem item, final VKNewsfeedArray newsfeedArray) {
+    private void setOnClick(final VKNewsfeedItem item, final VKNewsfeedArray newsfeedArray) {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

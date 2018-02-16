@@ -21,7 +21,7 @@ public class LoginFragment extends Fragment {
         view.findViewById(R.id.login_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                VKSdk.login(getActivity(), VKScopes.WALL,VKScopes.FRIENDS);
+                VKSdk.login(getActivity(), VKScopes.WALL, VKScopes.FRIENDS);
             }
         });
         return view;

@@ -2,14 +2,12 @@ package ru.test.mininn.vkfeed;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
-            case R.id.logout : {
+            case R.id.logout: {
                 logout();
             }
         }
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void startLoginFragment () {
+    private void startLoginFragment() {
         logoutMenuItem.setVisible(false);
         getSupportFragmentManager()
                 .beginTransaction()
