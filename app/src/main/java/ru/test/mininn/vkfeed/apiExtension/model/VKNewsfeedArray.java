@@ -1,15 +1,12 @@
 package ru.test.mininn.vkfeed.apiExtension.model;
 
 import android.os.Parcel;
-import android.support.annotation.NonNull;
 
 import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKPostArray;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Collection;
 
 public class VKNewsfeedArray extends VKList<VKNewsfeedItem> {
     private VKAuthorArray authors;
@@ -59,7 +56,8 @@ public class VKNewsfeedArray extends VKList<VKNewsfeedItem> {
             authors = new VKAuthorArray();
         }
         authors.addAll(vkNewsfeedArray.getAllAuthors());
-        nextFrom = vkNewsfeedArray.getNextFrom();
+        this.setNextFrom(vkNewsfeedArray.getNextFrom());
+        this.getNextFrom();
         return super.addAll(vkNewsfeedArray);
     }
 

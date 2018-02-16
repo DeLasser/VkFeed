@@ -21,6 +21,7 @@
         <activity android:name="com.vk.sdk.VKServiceActivity"
             android:label="ServiceActivity"
             android:theme="@style/VK.Transparent" />
+        <activity android:name=".wall.NewsfeedItemActivity" />
     </application>
 
 </manifest>

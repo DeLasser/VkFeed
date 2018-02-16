@@ -15,7 +15,9 @@ public class VKFeedAuthor extends VKApiModel implements Identifiable, android.os
     private String photo;
 
     private VKFeedAuthor(Parcel in) {
-
+        id = in.readInt();
+        name = in.readString();
+        photo = in.readString();
     }
 
     private VKFeedAuthor() {
@@ -37,7 +39,7 @@ public class VKFeedAuthor extends VKApiModel implements Identifiable, android.os
         return this;
     }
 
-    private static final Creator<VKFeedAuthor> CREATOR = new Creator<VKFeedAuthor>() {
+    public static final Creator<VKFeedAuthor> CREATOR = new Creator<VKFeedAuthor>() {
         @Override
         public VKFeedAuthor createFromParcel(Parcel in) {
             return new VKFeedAuthor(in);
@@ -56,7 +58,9 @@ public class VKFeedAuthor extends VKApiModel implements Identifiable, android.os
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(photo);
     }
 
     @Override

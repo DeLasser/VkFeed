@@ -16,8 +16,8 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedViewHolder>{
         this.newsfeedArray = new VKNewsfeedArray();
     }
 
-    public void add(VKNewsfeedArray newsfeedArray) {
-        this.newsfeedArray.addAll(newsfeedArray);
+    public void add(VKNewsfeedArray vkNewsfeedArray) {
+        this.newsfeedArray.addAll(vkNewsfeedArray);
     }
 
     @Override
@@ -35,5 +35,14 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedViewHolder>{
     @Override
     public int getItemCount() {
         return newsfeedArray.size();
+    }
+
+    public String getNextFrom () {
+        return newsfeedArray.getNextFrom();
+    }
+
+    public void clear() {
+        newsfeedArray.clear();
+        notifyDataSetChanged();
     }
 }

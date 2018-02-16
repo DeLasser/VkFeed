@@ -26,10 +26,33 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
     private VKAttachments attachments = new VKAttachments();
 
     private VKNewsfeedItem(Parcel in) {
+        id = in.readInt();
+        type = in.readString();
+        repost = in.readInt() > 0;
+        sourceId = in.readInt();
+        ownerId = in.readInt();
+        postId = in.readInt();
+        date = in.readLong();
+        text = in.readString();
+        repostedText = in.readString();
+        likesCount = in.readInt();
+        userLikes = in.readInt() > 0;
+        canLike = in.readInt() > 0;
+        canPublish = in.readInt() > 0;
+        postType = in.readString();
+        attachments = in.readParcelable(VKAttachments.class.getClassLoader());
     }
 
     public VKNewsfeedItem(JSONObject from) throws JSONException {
         parse(from);
+    }
+
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public void setUserLikes(boolean userLikes) {
+        this.userLikes = userLikes;
     }
 
     public VKNewsfeedItem parse(JSONObject source) throws JSONException {
@@ -110,7 +133,7 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
         return attachments;
     }
 
-    private static final Creator<VKNewsfeedItem> CREATOR = new Creator<VKNewsfeedItem>() {
+    public static final Creator<VKNewsfeedItem> CREATOR = new Creator<VKNewsfeedItem>() {
         @Override
         public VKNewsfeedItem createFromParcel(Parcel in) {
             return new VKNewsfeedItem(in);
@@ -129,6 +152,22 @@ public class VKNewsfeedItem extends VKAttachments.VKApiAttachment implements Ide
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(type);
+        dest.writeInt(repost ? 1 : 0);
+        dest.writeInt(sourceId);
+        dest.writeInt(ownerId);
+        dest.writeInt(postId);
+        dest.writeLong(date);
+        dest.writeString(text);
+        dest.writeString(repostedText);
+        dest.writeInt(likesCount);
+        dest.writeInt(userLikes ? 1 : 0);
+        dest.writeInt(canLike ? 1 : 0);
+        dest.writeInt(canPublish ? 1 : 0);
+        dest.writeString(postType);
+        dest.writeParcelable(attachments,0);
+
     }
 
     @Override
