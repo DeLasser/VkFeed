@@ -3,11 +3,14 @@ package ru.test.mininn.vkfeed;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
@@ -18,6 +21,9 @@ import ru.test.mininn.vkfeed.login.LoginFragment;
 import ru.test.mininn.vkfeed.wall.fragment.FeedFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final static String FRAGMENT_TAG_LOGIN = "login";
+    private final static String FRAGMENT_TAG_FEED = "feed";
 
     private MenuItem logoutMenuItem;
 
@@ -51,8 +57,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        logoutMenuItem = menu.getItem(0);
+        logoutMenuItem = menu.findItem(R.id.logout);
+        setLogoutMenuItemVisability();
         return true;
+    }
+
+    private void setLogoutMenuItemVisability() {
+        Log.d("asdasd" ,getSupportFragmentManager().getFragments().size() + "");
+        if (getSupportFragmentManager().getFragments().size() == 0 ) {
+            return;
+        }
+        if (getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_LOGIN) != null) {
+            logoutMenuItem.setVisible(false);
+        } else {
+            logoutMenuItem.setVisible(true);
+        }
     }
 
     @Override
@@ -103,18 +122,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startFeedFragment() {
-        logoutMenuItem.setVisible(true);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, new FeedFragment())
+                .replace(R.id.container, new FeedFragment(), FRAGMENT_TAG_FEED)
                 .commit();
+        invalidateOptionsMenu();
     }
 
     private void startLoginFragment() {
-        logoutMenuItem.setVisible(false);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, new LoginFragment())
+                .replace(R.id.container, new LoginFragment(), FRAGMENT_TAG_LOGIN)
                 .commit();
+        invalidateOptionsMenu();
     }
 }
